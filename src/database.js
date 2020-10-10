@@ -1,15 +1,17 @@
 import Sequelize from 'sequelize';
-import mysqlConfig from './configs/mysqlConfig';
+import dbConfig from './config/mysql';
+import User from './models/User';
+import Comment from './models/Comment';
+import Post from './models/Post';
 
-class Database {
-  constructor() {
-    this.mySql();
-  };
+const models = [User, Post, Comment];
 
-  async mySql() {
-    const mysqlConnection = new Sequelize(mysqlConfig);
-  };
-};
+const connection = new Sequelize(dbConfig);
+
+models.map(model => model.init(connection));
+
+Comment.associate(connection.models);
+Post.associate(connection.models);
 
 
-export default new Database();
+export default connection;

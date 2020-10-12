@@ -1,5 +1,5 @@
 import User from '../models/User';
-
+import bcrypt from 'bcryptjs';
 
 export default new class UserController {
   async store(req, res) {
@@ -10,11 +10,12 @@ export default new class UserController {
   
     if(emailAlreadyExits) {
       return res.json({ error: "Email ja existe"});
-    }
+    };
+
+    const passwordHash = await bcrypt.hash(password, 8);
   
-  
-    const user = await User.create({ first_name, last_name, email, password });
-    return res.json(user);
+    const user = await User.create({ first_name, last_name, email, password:passwordHash });
+    return res.json({ first_name, last_name, email });
   };
 
   async index(req, res) {

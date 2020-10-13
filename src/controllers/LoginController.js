@@ -23,10 +23,9 @@ export default new class LoginController {
       return res.status(400).json({ error: "Password invalid" })
     };
 
-    const { id, name } = user;
+    const { id, name, admin } = user;
     
-    const token = jwt.sign({ id }, authConfig.secret, { expiresIn:authConfig.expiresIn });
-
+    const token = jwt.sign({ id, admin }, authConfig.secret, { expiresIn:authConfig.expiresIn });
 
     return res.json({
       id,

@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 import authConfig from '../config/authJWT';
 
 
-
 export default async (req, res, next) => {
   const tokenHeader = req.headers.authorization;
   if(!tokenHeader) {
@@ -10,9 +9,11 @@ export default async (req, res, next) => {
   };
   
   const [, token] = tokenHeader.split(' ');
+
   try {
     const tokenDecoded = await jwt.verify(token, authConfig.secret);
-    req.userId = tokenDecoded;
+    req.userId = tokenDecoded.id;
+    req.adminUser = tokenDecoded.admin;
     return next();
   } catch(error) {
     return res.status(400).json({

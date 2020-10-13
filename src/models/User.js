@@ -8,6 +8,8 @@ export default class User extends Model {
       last_name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      active: DataTypes.BOOLEAN,
+      admin: DataTypes.BOOLEAN
     }, { sequelize: connection });
     return this;
   };

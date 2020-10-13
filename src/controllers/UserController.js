@@ -19,7 +19,10 @@ export default new class UserController {
   };
 
   async index(req, res) {
-    const users = await User.findAll();
-    return res.json(users)
+    if(req.adminUser) {
+      const users = await User.findAll();
+      return res.json(users)
+    };
+    return res.status(401).json({ error: "Only admins"});
   };
 };

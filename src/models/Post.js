@@ -12,6 +12,6 @@ export default class Post extends Model {
   };
 
   static associate(models) {
-    this.hasMany(models.Comment, { foreignKey: 'user_id', as: 'comments' });
+    this.hasMany(models.Comment, { foreignKey: 'post_id', as: 'comments' });
   };
 };

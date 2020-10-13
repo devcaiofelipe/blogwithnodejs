@@ -1,9 +1,16 @@
 import Post from '../models/Post';
+import Comment from '../models/Comment';
 
 
 export default new class PostController {
   async index(req, res) {
-    const allPosts = await Post.findAll();
+    const allPosts = await Post.findAll({
+      attributes: ['id', 'title', 'subtitle', 'content'],
+      include: {
+        model: Comment, as: 'comments',
+        attributes: ['id', 'content']
+      }
+    });
     return res.status(200).json(allPosts);
   };
 

@@ -7,7 +7,7 @@ export default new class CommentController {
       return res.status(401).json({ ok: "comment are available to common users" })
     };
     const commentContent = req.body.content;
-    console.log(commentContent);
+
 
     const commentCreated = await Comment.create({
       content: commentContent,

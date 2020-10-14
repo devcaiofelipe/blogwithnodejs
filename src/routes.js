@@ -11,6 +11,8 @@ const routes = new Router();
 routes.post('/user/create', UserController.store);
 routes.post('/user/login', LoginController.store);
 
+routes.get
+
 routes.post('/admin', CreateAdminController.store);
 routes.post('/admin/login', LoginController.store);
 routes.get('/admin/users', authMiddleware, UserController.index);

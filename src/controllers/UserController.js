@@ -1,5 +1,7 @@
 import User from '../models/User';
 import bcrypt from 'bcryptjs';
+import sendMail from '../lib/Mail';
+
 
 export default new class UserController {
   async store(req, res) {
@@ -15,6 +17,11 @@ export default new class UserController {
     const passwordHash = await bcrypt.hash(password, 8);
   
     const user = await User.create({ first_name, last_name, email, password:passwordHash });
+
+    await sendMail.sendMail({
+      to: `${name} <${email}>`,
+    })
+
     return res.json({ first_name, last_name, email });
   };
 

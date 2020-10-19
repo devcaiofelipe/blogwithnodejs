@@ -20,7 +20,6 @@ export default new class UserController {
 
     await Queue.add(ConfirmationMail.key, {
       user,
-      teste: "teste"
     });
 
     return res.json({ first_name, last_name, email });

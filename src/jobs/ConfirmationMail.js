@@ -7,8 +7,7 @@ export default new class ConfirmationMail {
   }
   
   async handle({ data }) {
-    const { user, teste } = data;
-    console.log(user, teste)
+    const { user } = data;
     await Mail.sendMail({
       to: `${user.first_name} <${user.email}>`,
       subject: 'Confirmacao de usuario',

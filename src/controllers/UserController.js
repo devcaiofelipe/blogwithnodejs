@@ -1,7 +1,7 @@
 import User from '../models/User';
 import bcrypt from 'bcryptjs';
-import sendMail from '../lib/Mail';
-
+import Queue from '../lib/Queue';
+import ConfirmationMail from '../jobs/ConfirmationMail';
 
 export default new class UserController {
   async store(req, res) {
@@ -18,9 +18,10 @@ export default new class UserController {
   
     const user = await User.create({ first_name, last_name, email, password:passwordHash });
 
-    await sendMail.sendMail({
-      to: `${name} <${email}>`,
-    })
+    await Queue.add(ConfirmationMail.key, {
+      user,
+      teste: "teste"
+    });
 
     return res.json({ first_name, last_name, email });
   };

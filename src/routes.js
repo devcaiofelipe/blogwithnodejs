@@ -5,13 +5,16 @@ import LoginController from './controllers/LoginController';
 import PostController from './controllers/PostController';
 import CreateAdminController from './controllers/CreateAdminController';
 import CommentController from './controllers/CommentController';
+import CommentController from './controllers/CommentController';
+import ConfirmUserController from './controllers/ConfirmUserController';
+
 
 const routes = new Router();
 
 routes.post('/user/create', UserController.store);
 routes.post('/user/login', LoginController.store);
 
-routes.get
+routes.get('/user/confirm/:userId', ConfirmUserController.update);
 
 routes.post('/admin', CreateAdminController.store);
 routes.post('/admin/login', LoginController.store);

@@ -7,6 +7,6 @@ export default {
     pass: "23acb4db3e2796"
   },
   default: {
-    from: 'Equipe blog do caiozao <noreply@gobarber.com>'
+    from: 'Equipe blog do caiozao <noreply@blog.com>'
   }
 };

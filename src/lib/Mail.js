@@ -1,5 +1,8 @@
 import nodemailer from 'nodemailer';
 import mailConfig from '../config/mail';
+import { resolve } from 'path';
+import exphbs from 'express-handlebars';
+import nodemailerhbs from 'nodemailer-express-handlebars';
 
 
 export default new class Mail {
@@ -10,7 +13,22 @@ export default new class Mail {
       port,
       secure,
       auth: auth.user ? auth : null,
-    })
+    }),
+
+    this.configureTemplates();
+  };
+
+  configureTemplates() {
+    const viewPath = resolve(__dirname, '..', 'views', 'emails');
+    this.transporter.use('compile', nodemailerhbs({
+      viewEngine: exphbs.create({
+        layoutsDir: resolve(viewPath, 'layouts'),
+        defaultLayout: 'default',
+        extname: '.hbs'
+      }),
+      viewPath,
+      extName: '.hbs',
+    }))
   };
 
   sendMail(message) {
